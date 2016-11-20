@@ -17,4 +17,4 @@ React and Redux sample project.
 Reference package.json for a list of all project dependencies
 * youtube-api-search
 * axios
-* 
+* lodash

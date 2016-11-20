@@ -1,5 +1,6 @@
 // Enable access to logic required in other JS modules ref node_modules
 // Library Dependencies
+import _ from 'lodash';
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import YTSearch from 'youtube-api-search';
@@ -64,9 +65,13 @@ class App extends Component {
   }
 
   render() {
+    // throttled version of the function that is passed to the SearchBar
+    const videoSearch = _.debounce((term) => { this.videoSearch(term) }, 300);
+
     return (
       <div>
-        <SearchBar onSearchTermChange={ term => this.videoSearch(term) } />
+        // Use lodash to throttle the frequency at which the new term is sent to YT API
+        <SearchBar onSearchTermChange={ videoSearch } />
         // pass videos as props to the video list
         <VideoDetail video={ this.state.selectedVideo } />
         <VideoList 
