@@ -48,8 +48,12 @@ class App extends Component {
       selectedVideo: null
     };
 
+    this.videoSearch('surfboards');
+  }
+
+  videoSearch(term) {
     // asynchoronous api request - component should not render until the data has been received
-    YTSearch({ key: API_KEY, term: 'surfboards' }, (videos) => {
+    YTSearch({ key: API_KEY, term: term }, (videos) => {
       // ES6 syntax - videos: videos not needed when key and property are the same variable name
       // this.setState({ videos });
       this.setState({
@@ -59,12 +63,10 @@ class App extends Component {
     });
   }
 
-
-
   render() {
     return (
       <div>
-        <SearchBar />
+        <SearchBar onSearchTermChange={ term => this.videoSearch(term) } />
         // pass videos as props to the video list
         <VideoDetail video={ this.state.selectedVideo } />
         <VideoList 

@@ -33,24 +33,27 @@ class SearchBar extends Component {
   }
 
   render() {
-    // return <input onChange={ this.onInputChange } />;
     // controlled form element - value is derived from component state
     // ES6 syntax for binding handler to self and updating state with input value
+    // onChange={ event => this.setState({ term: event.target.value }) }
     return (
       <div>
         <input 
           value={this.state.term}
-          onChange={ event => this.setState({ term: event.target.value }) }/>
+          onChange={ event => this.onInputChange(event.target.value) } />
       </div>
     );
   }
 
   // listen for events that are triggered by the user interacting with the component
   // inlined ES6 syntax on input onChange property
-  // onInputChange(event) {
-  //   // event describes content of the event that was triggered
-  //   console.log(event.target.value);
-  // }
+  onInputChange(term) {
+    // event describes content of the event that was triggered
+    // this.setState({ term: term });
+    // ES6 syntax
+    this.setState({ term });
+    this.props.onSearchTermChange(term);
+  }
 }
 
 // Export the module
